@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Table(name = "spots")
-public class Spot {
+public class Spot{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
@@ -34,6 +35,9 @@ public class Spot {
     String description;
 
     SpotType spotType;
+
+    int userRating;
+    double rating;
 
 
     @JsonBackReference("3")

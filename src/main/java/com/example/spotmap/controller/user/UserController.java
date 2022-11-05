@@ -3,13 +3,11 @@ package com.example.spotmap.controller.user;
 import com.example.rolemanagement.role.Role;
 import com.example.spotmap.annotations.RequiredRole;
 import com.example.spotmap.global.Global;
-import com.example.spotmap.image.Image;
-import com.example.spotmap.image.ImageRepository;
 import com.example.spotmap.profileImage.ProfileImage;
 import com.example.spotmap.profileImage.ProfileImageRepository;
+import com.example.spotmap.rating.Rating;
 import com.example.spotmap.spot.Spot;
 import com.example.spotmap.spot.SpotRepository;
-import com.example.spotmap.spot.SpotResponse;
 import com.example.spotmap.user.User;
 import com.example.spotmap.user.UserRepository;
 import com.example.spotmap.utils.ShaUtils;
@@ -23,8 +21,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Entity;
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,15 +57,13 @@ public class UserController {
 
     @RequiredRole(Role.USER)
     @PostMapping("/post-spot")
-    public ResponseEntity<SpotResponse> createSpot(@RequestBody Spot spot, @RequestParam String token) {
-        System.out.println("Drinnen");
+    public ResponseEntity<Spot> createSpot(@RequestBody Spot spot, @RequestParam String token) {
         Optional<User> user = userRepository.findByToken(token);
         if(user.isPresent()) {
             spot.setUser(user.get());
             user.get().getSpotList().add(spot);
             Spot savedSpot = spotRepository.save(spot);
-            System.out.println("Saved");
-            return ResponseEntity.status(HttpStatus.OK).body(SpotResponse.getResponseFromSpot(savedSpot, 0));
+            return ResponseEntity.status(HttpStatus.OK).body(savedSpot);
         }else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 

@@ -3,24 +3,13 @@ package com.example.spotmap.controller.spot;
 import com.example.spotmap.rating.Rating;
 import com.example.spotmap.spot.Spot;
 import com.example.spotmap.spot.SpotRepository;
-import com.example.spotmap.spot.SpotResponse;
-import com.example.spotmap.spot.SpotType;
 import com.example.spotmap.user.User;
 import com.example.spotmap.user.UserRepository;
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +25,9 @@ public class SpotController {
     UserRepository userRepository;
 
     @GetMapping("/all")
-    public ResponseEntity<List<SpotResponse>> getAllSpots(@RequestParam("token") String token) {
+    public ResponseEntity<List<Spot>> getAllSpots(@RequestParam("token") String token) {
         Optional<User> user = userRepository.findByToken(token);
-        List<SpotResponse> spotList = new ArrayList<>();
+        List<Spot> spotList = new ArrayList<>();
         spotRepository.findAll().forEach(spot -> {
             int userRating = 0;
             if (user.isPresent()) {
@@ -46,7 +35,8 @@ public class SpotController {
                     if (rating.getUser().getUsername().equals(user.get().getUsername())) userRating = rating.getStars();
                 }
             }
-            spotList.add(SpotResponse.getResponseFromSpot(spot, userRating));
+            spot.setUserRating(userRating);
+            spotList.add(spot);
         });
         return ResponseEntity.status(HttpStatus.OK).body(spotList);
     }
@@ -59,7 +49,7 @@ public class SpotController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SpotResponse> getSpot(@PathVariable("id") int id, @RequestParam("token") String token) {
+    public ResponseEntity<Spot> getSpot(@PathVariable("id") int id, @RequestParam("token") String token) {
         Optional<User> user = userRepository.findByToken(token);
         Optional<Spot> spot = spotRepository.findById(id);
         if (spot.isPresent()) {
@@ -69,7 +59,8 @@ public class SpotController {
                     if (rating.getUser().getUsername().equals(user.get().getUsername())) userRating = rating.getStars();
                 }
             }
-            return ResponseEntity.status(HttpStatus.OK).body(SpotResponse.getResponseFromSpot(spot.get(), userRating));
+            spot.get().setUserRating(userRating);
+            return ResponseEntity.status(HttpStatus.OK).body(spot.get());
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
