@@ -1,4 +1,6 @@
 package com.example.spotmap.rating;
 
-public interface RatingInterface extends {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RatingRepository extends JpaRepository<Rating, Integer> {
 }

@@ -9,6 +9,7 @@ import com.example.spotmap.profileImage.ProfileImage;
 import com.example.spotmap.profileImage.ProfileImageRepository;
 import com.example.spotmap.spot.Spot;
 import com.example.spotmap.spot.SpotRepository;
+import com.example.spotmap.spot.SpotResponse;
 import com.example.spotmap.user.User;
 import com.example.spotmap.user.UserRepository;
 import com.example.spotmap.utils.ShaUtils;
@@ -43,7 +44,6 @@ public class UserController {
     @Autowired
     ProfileImageRepository profileImageRepository;
 
-    @RequiredRole(Role.GUEST)
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         user.setRole(Role.USER);
@@ -61,14 +61,15 @@ public class UserController {
 
     @RequiredRole(Role.USER)
     @PostMapping("/post-spot")
-    public ResponseEntity<Spot> createSpot(@RequestBody Spot spot, @RequestParam String token) {
+    public ResponseEntity<SpotResponse> createSpot(@RequestBody Spot spot, @RequestParam String token) {
+        System.out.println("Drinnen");
         Optional<User> user = userRepository.findByToken(token);
         if(user.isPresent()) {
             spot.setUser(user.get());
             user.get().getSpotList().add(spot);
             Spot savedSpot = spotRepository.save(spot);
-            savedSpot.getUser().getSpotList().clear();
-            return ResponseEntity.status(HttpStatus.OK).body(savedSpot);
+            System.out.println("Saved");
+            return ResponseEntity.status(HttpStatus.OK).body(SpotResponse.getResponseFromSpot(savedSpot, 0));
         }else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
@@ -77,7 +78,6 @@ public class UserController {
         List<User> userList = new ArrayList<>();
         userRepository.findAll().forEach(user -> {
             user.setToken("");
-            user.getSpotList().forEach(spot -> spot.setUser(null));
             userList.add(user);
         });
         return ResponseEntity.status(HttpStatus.OK).body(userList);
@@ -120,7 +120,6 @@ public class UserController {
         Optional<User> user = userRepository.findByToken(token);
 
         if (user.isPresent()) {
-            user.get().getSpotList().forEach(spot -> spot.setUser(null));
             return ResponseEntity.status(HttpStatus.OK).body(user.get());
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }

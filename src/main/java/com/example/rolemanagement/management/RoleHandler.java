@@ -1,9 +1,11 @@
 package com.example.rolemanagement.management;
 
 import com.example.rolemanagement.role.Role;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 
+@Service
 public class RoleHandler {
 
     protected static final HashMap<String, Role> storage = new HashMap<>();
