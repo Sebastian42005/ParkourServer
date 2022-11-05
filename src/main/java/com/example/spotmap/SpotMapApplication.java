@@ -9,7 +9,6 @@ public class SpotMapApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpotMapApplication.class, args);
-        RoleHandler.init();
     }
 
 }
