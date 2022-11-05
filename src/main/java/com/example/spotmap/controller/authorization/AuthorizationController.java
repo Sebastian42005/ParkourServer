@@ -1,6 +1,6 @@
 package com.example.spotmap.controller.authorization;
 
-import com.example.rolemanagement.management.RoleHandler;
+import com.example.spotmap.role.management.RoleHandler;
 import com.example.spotmap.user.User;
 import com.example.spotmap.user.UserRepository;
 import com.example.spotmap.utils.ShaUtils;

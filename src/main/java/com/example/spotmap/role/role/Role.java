@@ -1,4 +1,4 @@
-package com.example.rolemanagement.role;
+package com.example.spotmap.role.role;
 
 import lombok.Getter;
 

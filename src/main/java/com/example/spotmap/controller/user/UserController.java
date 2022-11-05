@@ -1,11 +1,11 @@
 package com.example.spotmap.controller.user;
 
-import com.example.rolemanagement.role.Role;
 import com.example.spotmap.annotations.RequiredRole;
 import com.example.spotmap.global.Global;
 import com.example.spotmap.profileImage.ProfileImage;
 import com.example.spotmap.profileImage.ProfileImageRepository;
 import com.example.spotmap.rating.Rating;
+import com.example.spotmap.role.role.Role;
 import com.example.spotmap.spot.Spot;
 import com.example.spotmap.spot.SpotRepository;
 import com.example.spotmap.user.User;

@@ -1,6 +1,6 @@
-package com.example.rolemanagement.management;
+package com.example.spotmap.role.management;
 
-import com.example.rolemanagement.role.Role;
+import com.example.spotmap.role.role.Role;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

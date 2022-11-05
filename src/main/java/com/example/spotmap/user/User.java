@@ -1,6 +1,6 @@
 package com.example.spotmap.user;
 
-import com.example.rolemanagement.role.Role;
+import com.example.spotmap.role.role.Role;
 import com.example.spotmap.rating.Rating;
 import com.example.spotmap.spot.Spot;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

@@ -1,7 +1,7 @@
 package com.example.spotmap.annotations;
 
-import com.example.rolemanagement.management.RequiredRoleValidation;
-import com.example.rolemanagement.role.Role;
+import com.example.spotmap.role.management.RequiredRoleValidation;
+import com.example.spotmap.role.role.Role;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Constraint;
