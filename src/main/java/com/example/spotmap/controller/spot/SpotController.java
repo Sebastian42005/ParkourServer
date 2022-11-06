@@ -3,6 +3,7 @@ package com.example.spotmap.controller.spot;
 import com.example.spotmap.rating.Rating;
 import com.example.spotmap.spot.Spot;
 import com.example.spotmap.spot.SpotRepository;
+import com.example.spotmap.spot.SpotType;
 import com.example.spotmap.user.User;
 import com.example.spotmap.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/spots")
@@ -25,10 +27,18 @@ public class SpotController {
     UserRepository userRepository;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Spot>> getAllSpots(@RequestParam("token") String token) {
+    public ResponseEntity<List<Spot>> getAllSpots(@RequestParam("token") String token,
+                                                  @RequestParam(value = "city", defaultValue = "all") String city,
+                                                  @RequestParam(value = "type", defaultValue = "all") SpotType spotType) {
         Optional<User> user = userRepository.findByToken(token);
         List<Spot> spotList = new ArrayList<>();
-        spotRepository.findAll().forEach(spot -> {
+        List<Spot> spotFilteredList = spotRepository.findAll()
+                .stream()
+                .filter(s -> city.equals("all") || s.getCity().equals(city))
+                .filter(s -> spotType == SpotType.all || s.getSpotType().equals(spotType))
+                .toList();
+
+        spotFilteredList.forEach(spot -> {
             int userRating = 0;
             if (user.isPresent()) {
                 for (Rating rating : spot.getRatingList()) {
