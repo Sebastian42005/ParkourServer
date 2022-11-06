@@ -29,13 +29,16 @@ public class SpotController {
     @GetMapping("/all")
     public ResponseEntity<List<Spot>> getAllSpots(@RequestParam("token") String token,
                                                   @RequestParam(value = "city", defaultValue = "all") String city,
-                                                  @RequestParam(value = "type", defaultValue = "all") SpotType spotType) {
+                                                  @RequestParam(value = "types") Optional<List<SpotType>> spotTypesParam) {
         Optional<User> user = userRepository.findByToken(token);
         List<Spot> spotList = new ArrayList<>();
+        List<SpotType> spotTypeList = new ArrayList<>();
+        spotTypesParam.ifPresent(spotTypeList::addAll);
+
         List<Spot> spotFilteredList = spotRepository.findAll()
                 .stream()
                 .filter(s -> city.equals("all") || s.getCity().equals(city))
-                .filter(s -> spotType == SpotType.all || s.getSpotType().equals(spotType))
+                .filter(s -> spotTypeList.isEmpty() || spotTypeList.contains(s.getSpotType()))
                 .toList();
 
         spotFilteredList.forEach(spot -> {

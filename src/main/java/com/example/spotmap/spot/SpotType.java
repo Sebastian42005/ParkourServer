@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Locale;
 
 public enum SpotType {
-    all("all"),
     parkour("parkour"),
     freerunning("freerunning"),
     calisthenics("calisthenics");
