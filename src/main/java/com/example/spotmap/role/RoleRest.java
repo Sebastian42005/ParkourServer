@@ -1,8 +1,8 @@
 package com.example.spotmap.role;
 
 import com.example.spotmap.role.management.RoleHandler;
-import com.example.spotmap.user.User;
-import com.example.spotmap.user.UserRepository;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;

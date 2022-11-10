@@ -1,4 +1,4 @@
-package com.example.spotmap.spot;
+package com.example.spotmap.data.spot;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

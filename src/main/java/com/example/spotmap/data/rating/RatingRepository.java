@@ -1,4 +1,4 @@
-package com.example.spotmap.rating;
+package com.example.spotmap.data.rating;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

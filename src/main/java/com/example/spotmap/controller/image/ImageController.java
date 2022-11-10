@@ -1,12 +1,11 @@
 package com.example.spotmap.controller.image;
 
-import com.example.spotmap.image.Image;
-import com.example.spotmap.image.ImageRepository;
-import com.example.spotmap.spot.Spot;
-import com.example.spotmap.spot.SpotRepository;
+import com.example.spotmap.data.image.Image;
+import com.example.spotmap.data.image.ImageRepository;
+import com.example.spotmap.data.spot.Spot;
+import com.example.spotmap.data.spot.SpotRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

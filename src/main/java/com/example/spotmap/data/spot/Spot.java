@@ -1,7 +1,7 @@
-package com.example.spotmap.spot;
+package com.example.spotmap.data.spot;
 
-import com.example.spotmap.rating.Rating;
-import com.example.spotmap.user.User;
+import com.example.spotmap.data.rating.Rating;
+import com.example.spotmap.data.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
@@ -9,7 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

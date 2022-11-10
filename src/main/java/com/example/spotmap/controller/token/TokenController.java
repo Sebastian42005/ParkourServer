@@ -1,7 +1,7 @@
 package com.example.spotmap.controller.token;
 
-import com.example.spotmap.user.User;
-import com.example.spotmap.user.UserRepository;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.slf4j.Logger;

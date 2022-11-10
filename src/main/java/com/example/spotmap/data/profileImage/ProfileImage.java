@@ -1,4 +1,4 @@
-package com.example.spotmap.image;
+package com.example.spotmap.data.profileImage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,11 @@ import javax.persistence.Table;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "images")
-public class Image {
+@Table(name = "profiles")
+public class ProfileImage {
 
     @Id
-    int id;
+    String username;
     String type;
     byte[] bytes;
 }
