@@ -5,11 +5,11 @@ import com.example.spotmap.role.role.Role;
 import com.example.spotmap.data.rating.Rating;
 import com.example.spotmap.data.spot.Spot;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
