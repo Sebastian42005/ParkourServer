@@ -14,6 +14,10 @@ import { UsermanagementComponent } from './components/usermanagement/usermanagem
 import { CompanymanagementComponent } from './components/companymanagement/companymanagement.component';
 import {MatSortModule} from "@angular/material/sort";
 import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { YesnodialogComponent } from './dialogs/yesnodialog/yesnodialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -22,6 +26,7 @@ import {MatTableModule} from "@angular/material/table";
     FullLayoutComponent,
     UsermanagementComponent,
     CompanymanagementComponent,
+    YesnodialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,9 @@ import {MatTableModule} from "@angular/material/table";
     MatTabsModule,
     MatSortModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
 

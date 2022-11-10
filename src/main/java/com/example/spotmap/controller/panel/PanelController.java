@@ -50,4 +50,13 @@ public class PanelController {
         return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
     }
 
+    @DeleteMapping("/delete/{username}")
+    public ResponseEntity<List<User>> deleteUser(@PathVariable("username") String username) {
+        User user = userRepository.findByUsername(username).orElseThrow();
+        userRepository.delete(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+    }
+
+
 }
