@@ -3,6 +3,7 @@ import {ApiService} from "../../services/api/api.service";
 import {User} from "../../models/user.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NotificationService} from "../../services/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   password: string = '';
 
   constructor(private api: ApiService,
-              private notification: NotificationService) { }
+              private notification: NotificationService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -27,11 +29,14 @@ export class LoginComponent implements OnInit {
     }
 
     this.api.post<User>("/login", {username: this.username, password: this.password}).subscribe(user => {
-      console.log(user);
-
+      this.go("/index")
     }, (err: HttpErrorResponse) => {
       this.handleStatusCodeResponse(err.status)
     })
+  }
+
+  go(url: string) {
+    this.router.navigate([url]);
   }
 
   private handleStatusCodeResponse(code: number) {

@@ -56,3 +56,10 @@ input {
     color: white;
   }
 }
+
+.mat-tab-group.mat-primary .mat-ink-bar{
+  background: $app-theme-cyan;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
