@@ -1,14 +1,15 @@
-package com.example.spotmap.user;
+package com.example.spotmap.data.user;
 
+import com.example.spotmap.data.company.Company;
 import com.example.spotmap.role.role.Role;
-import com.example.spotmap.rating.Rating;
-import com.example.spotmap.spot.Spot;
+import com.example.spotmap.data.rating.Rating;
+import com.example.spotmap.data.spot.Spot;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;

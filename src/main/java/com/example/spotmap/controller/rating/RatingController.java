@@ -1,15 +1,14 @@
 package com.example.spotmap.controller.rating;
 
-import com.example.spotmap.rating.Rating;
-import com.example.spotmap.rating.RatingRepository;
-import com.example.spotmap.spot.Spot;
-import com.example.spotmap.spot.SpotRepository;
-import com.example.spotmap.user.User;
-import com.example.spotmap.user.UserRepository;
+import com.example.spotmap.data.rating.Rating;
+import com.example.spotmap.data.rating.RatingRepository;
+import com.example.spotmap.data.spot.Spot;
+import com.example.spotmap.data.spot.SpotRepository;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.SerializationUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

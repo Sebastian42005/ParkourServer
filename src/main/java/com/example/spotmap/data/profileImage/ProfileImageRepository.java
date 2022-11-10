@@ -1,4 +1,4 @@
-package com.example.spotmap.profileImage;
+package com.example.spotmap.data.profileImage;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

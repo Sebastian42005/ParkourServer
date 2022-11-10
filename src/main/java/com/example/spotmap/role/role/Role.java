@@ -5,7 +5,8 @@ import lombok.Getter;
 public enum Role {
     GUEST(0),
     USER(1),
-    ADMIN(2);
+    COMPANY(2),
+    ADMIN(3);
 
     @Getter
     private final int weight;

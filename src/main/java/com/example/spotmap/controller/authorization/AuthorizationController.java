@@ -1,8 +1,8 @@
 package com.example.spotmap.controller.authorization;
 
 import com.example.spotmap.role.management.RoleHandler;
-import com.example.spotmap.user.User;
-import com.example.spotmap.user.UserRepository;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import com.example.spotmap.utils.ShaUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +37,7 @@ public class AuthorizationController {
     UserRepository userRepository;
 
     @PostMapping("/login")
-    private LoginResponse login(@RequestBody LoginCredentials loginCredentials) {
+    public LoginResponse login(@RequestBody LoginCredentials loginCredentials) {
         User user = userRepository.login(loginCredentials.username, ShaUtils.decode(loginCredentials.password));
         LoginResponse loginResponse = new LoginResponse();
         if (user != null) {

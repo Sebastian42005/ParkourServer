@@ -1,11 +1,11 @@
 package com.example.spotmap.controller.spot;
 
-import com.example.spotmap.rating.Rating;
-import com.example.spotmap.spot.Spot;
-import com.example.spotmap.spot.SpotRepository;
-import com.example.spotmap.spot.SpotType;
-import com.example.spotmap.user.User;
-import com.example.spotmap.user.UserRepository;
+import com.example.spotmap.data.rating.Rating;
+import com.example.spotmap.data.spot.Spot;
+import com.example.spotmap.data.spot.SpotRepository;
+import com.example.spotmap.data.spot.SpotType;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/spots")

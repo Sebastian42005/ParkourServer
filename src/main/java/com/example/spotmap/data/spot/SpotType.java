@@ -1,4 +1,4 @@
-package com.example.spotmap.spot;
+package com.example.spotmap.data.spot;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Locale;
 
 public enum SpotType {
-    parkour("parkour"),
-    freerunning("freerunning"),
-    calisthenics("calisthenics");
+    PARKOUR("parkour"),
+    FREERUNNING("freerunning"),
+    CALISTHENICS("calisthenics");
 
     private String value;
 

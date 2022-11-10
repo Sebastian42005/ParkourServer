@@ -1,7 +1,7 @@
-package com.example.spotmap.rating;
+package com.example.spotmap.data.rating;
 
-import com.example.spotmap.spot.Spot;
-import com.example.spotmap.user.User;
+import com.example.spotmap.data.spot.Spot;
+import com.example.spotmap.data.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
