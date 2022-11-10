@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -38,14 +39,14 @@ public class AuthorizationController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginCredentials loginCredentials) {
-        User user = userRepository.login(loginCredentials.username, ShaUtils.decode(loginCredentials.password));
+        Optional<User> user = userRepository.login(loginCredentials.username, ShaUtils.decode(loginCredentials.password));
         LoginResponse loginResponse = new LoginResponse();
-        if (user != null) {
+        if (user.isPresent()) {
             String token = UUID.randomUUID().toString();
-            user.setToken(token);
-            user.setTokenExpiresAt(Instant.now().plus(30, ChronoUnit.DAYS));
-            userRepository.save(user);
-            RoleHandler.push(token, user.getRole());
+            user.get().setToken(token);
+            user.get().setTokenExpiresAt(Instant.now().plus(30, ChronoUnit.DAYS));
+            userRepository.save(user.get());
+            RoleHandler.push(token, user.get().getRole());
             loginResponse.token = token;
         }
         return loginResponse;

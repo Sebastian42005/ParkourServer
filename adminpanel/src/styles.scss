@@ -1,0 +1,79 @@
+//global themes variables
+root {
+  $app-theme-cyan: rgb(50, 173, 230) !global;
+  $app-theme-input-gray: #f1f1f1 !global;
+}
+
+  /* You can add global styles to this file, and also import other style files */
+
+  html, body { height: 100%; }
+  body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+  button {
+    cursor: pointer;
+    background-color: $app-theme-cyan;
+    color: white;
+    padding: 1vh;
+    width: 10vh;
+    border: 0.3vh solid $app-theme-cyan;
+    border-radius: 1vh;
+    font-size: 16px;
+  }
+
+button:hover {
+  font-size: 17px;
+  transform: scale(1.1);
+}
+
+input {
+  width: 30vh;
+  height: 2.5vh;
+  border: none;
+  background-color: $app-theme-input-gray;
+  padding: 1vh;
+  font-size: 16px;
+  border-radius: 1vh;
+}
+
+.mat-snackbar-error {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  background-color: darkred;
+  transform: translate(95%, 0) !important;
+
+  button {
+    background-color: darkred;
+    width: 5vh;
+    text-align: center;
+    padding: 0;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  span {
+    color: white;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: rgb(50, 173, 230);
+    padding: 1vh;
+    color: white;
+  }
+  td {
+    padding: 1vh;
+  }
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar{
+  background: $app-theme-cyan;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

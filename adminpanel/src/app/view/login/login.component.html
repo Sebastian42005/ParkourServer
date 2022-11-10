@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="title">
+    <span>Login to Admin Panel</span>
+  </div>
+  <div class="content">
+    <mat-icon> person </mat-icon><input type="text" [(ngModel)]="username" placeholder="Username"> <br>
+    <mat-icon> key </mat-icon><input type="password" [(ngModel)]="password" placeholder="Password">
+  </div>
+  <div class="button-container">
+    <button (click)="login()"> Login </button>
+  </div>
+</div>

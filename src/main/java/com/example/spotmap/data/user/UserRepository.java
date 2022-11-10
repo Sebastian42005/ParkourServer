@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select * from users where username = :username and password = :password", nativeQuery = true)
-    User login(@Param("username") String username, @Param("password") String password);
+    Optional<User> login(@Param("username") String username, @Param("password") String password);
 
     @Query(value = "select * from users where token = :token", nativeQuery = true)
     Optional<User> findByToken(@Param("token") String token);

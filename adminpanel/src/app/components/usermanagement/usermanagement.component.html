@@ -1,0 +1,20 @@
+<table matSort (matSortChange)="sortChange()">
+  <tr>
+    <th mat-sort-header="username">Username</th>
+    <th mat-sort-header="role">Role</th>
+    <th mat-sort-header="token">Token</th>
+    <th mat-sort-header="tokenExpiresAt">Token Expires At</th>
+    <th style="text-align: right">Actions</th>
+  </tr>
+  <tr *ngFor="let user of userList">
+    <td style="background-color: #efefef">{{user.username}}</td>
+    <td>{{user.role}}</td>
+    <td style="background-color: #efefef">{{user.token}}</td>
+    <td>{{user.tokenExpiresAt}}</td>
+    <td style="background-color: #efefef; text-align: right; display: flex; justify-content: space-around">
+      <mat-icon (click)="edit()"> edit </mat-icon>
+      <mat-icon (click)="editPassword()"> key </mat-icon>
+      <mat-icon style="color: red" (click)="delete()"> delete </mat-icon>
+    </td>
+  </tr>
+</table>
