@@ -57,6 +57,20 @@ input {
   }
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th {
+    background-color: rgb(50, 173, 230);
+    padding: 1vh;
+    color: white;
+  }
+  td {
+    padding: 1vh;
+  }
+}
+
 .mat-tab-group.mat-primary .mat-ink-bar{
   background: $app-theme-cyan;
 }

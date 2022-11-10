@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../services/api/api.service";
-import {User} from "../../models/user.model";
+import { AdminUser, User} from "../../models/user.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NotificationService} from "../../services/notification.service";
 import {Router} from "@angular/router";
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.api.post<User>("/login", {username: this.username, password: this.password}).subscribe(user => {
+    this.api.post<User>("/panel/login", {username: this.username, password: this.password}).subscribe(user => {
+      AdminUser.token = user.token;
       this.go("/index")
     }, (err: HttpErrorResponse) => {
       this.handleStatusCodeResponse(err.status)

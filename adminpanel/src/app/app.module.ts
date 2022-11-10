@@ -12,6 +12,8 @@ import {FullLayoutComponent} from "./view/full-layout/full-layout.component";
 import {MatTabsModule} from "@angular/material/tabs";
 import { UsermanagementComponent } from './components/usermanagement/usermanagement.component';
 import { CompanymanagementComponent } from './components/companymanagement/companymanagement.component';
+import {MatSortModule} from "@angular/material/sort";
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { CompanymanagementComponent } from './components/companymanagement/compa
     HttpClientModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatSortModule,
+    MatTableModule,
   ],
   providers: [
 

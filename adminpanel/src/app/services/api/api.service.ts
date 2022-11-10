@@ -9,7 +9,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  private readonly baseUrl: string = 'http://localhost:8080/api/panel'
+  private readonly baseUrl: string = 'http://localhost:8080/api'
 
   public get<T>(url: string): Observable<T> {
     return this.http.get<T>(this.baseUrl + url);
