@@ -40,15 +40,18 @@ public class CompanyController {
     @RequiredRole(Role.USER)
     @PostMapping("/request-permission")
     public ResponseEntity<RequestPermissionResponseClass> requestPermission(@RequestParam("token") String token, @RequestParam("message") String message) {
+        List<CompanyRequest> companyRequestList = companyRequestRepository.findAll();
         Optional<User> user = userRepository.findByToken(token);
         if (user.isPresent()) {
-            if (user.get().getRole() == Role.USER) {
-                CompanyRequest companyRequest = new CompanyRequest();
-                companyRequest.setMessage(message);
-                companyRequest.setUsername(user.get().getUsername());
-                companyRequestRepository.save(companyRequest);
-                return ResponseEntity.ok().body(new RequestPermissionResponseClass("sent request"));
-            }else return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            if (!companyRequestList.stream().anyMatch(companyRequest -> user.get().getUsername().equals(companyRequest.getUsername()))) {
+                if (user.get().getRole() == Role.USER) {
+                    CompanyRequest companyRequest = new CompanyRequest();
+                    companyRequest.setMessage(message);
+                    companyRequest.setUsername(user.get().getUsername());
+                    companyRequestRepository.save(companyRequest);
+                    return ResponseEntity.ok().body(new RequestPermissionResponseClass("sent request"));
+                } else return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            }else return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
