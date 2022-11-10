@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as http from "http";
 import {ApiService} from "../../services/api/api.service";
 import {User} from "../../models/user.model";
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarModule} from "@angular/material/snack-bar";
 import {HttpErrorResponse} from "@angular/common/http";
 import {NotificationService} from "../../services/notification.service";
 
@@ -28,9 +26,7 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.api.post<User>("/login", {username: this.username, password: this.password}).subscribe(response => {
-      const user = response.body!
-
+    this.api.post<User>("/login", {username: this.username, password: this.password}).subscribe(user => {
       console.log(user);
 
     }, (err: HttpErrorResponse) => {

@@ -11,20 +11,20 @@ export class ApiService {
 
   private readonly baseUrl: string = 'http://localhost:8080/api/panel'
 
-  public get<T>(url: string): Observable<HttpResponse<T>> {
-    return this.http.get<HttpResponse<T>>(this.baseUrl + url);
+  public get<T>(url: string): Observable<T> {
+    return this.http.get<T>(this.baseUrl + url);
   }
 
-  public post<T>(url: string, body: any): Observable<HttpResponse<T>> {
-    return this.http.post<HttpResponse<T>>(this.baseUrl + url, body);
+  public post<T>(url: string, body: any): Observable<T> {
+    return this.http.post<T>(this.baseUrl + url, body);
   }
 
-  public delete<T>(url: string): Observable<HttpResponse<T>> {
-    return this.http.delete<HttpResponse<T>>(this.baseUrl + url);
+  public delete<T>(url: string): Observable<T> {
+    return this.http.delete<T>(this.baseUrl + url);
   }
 
-  public put<T>(url: string, body: any): Observable<HttpResponse<T>> {
-    return this.http.put<HttpResponse<T>>(this.baseUrl + url, body);
+  public put<T>(url: string, body: any): Observable<T> {
+    return this.http.put<T>(this.baseUrl + url, body);
   }
 
 }
