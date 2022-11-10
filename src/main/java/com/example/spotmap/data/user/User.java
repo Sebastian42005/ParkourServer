@@ -1,6 +1,5 @@
 package com.example.spotmap.data.user;
 
-import com.example.spotmap.data.company.Company;
 import com.example.spotmap.role.role.Role;
 import com.example.spotmap.data.rating.Rating;
 import com.example.spotmap.data.spot.Spot;
