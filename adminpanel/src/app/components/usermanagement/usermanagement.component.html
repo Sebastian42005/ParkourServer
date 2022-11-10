@@ -1,20 +1,39 @@
-<table matSort (matSortChange)="sortChange($event)">
-  <tr>
-    <th mat-sort-header="username">Username</th>
-    <th mat-sort-header="role">Role</th>
-    <th mat-sort-header="token">Token</th>
-    <th mat-sort-header="tokenExpiresAt">Token Expires At</th>
-    <th style="text-align: right">Actions</th>
-  </tr>
-  <tr *ngFor="let user of userList">
-    <td style="background-color: #efefef">{{user.username}}</td>
-    <td>{{user.role}}</td>
-    <td style="background-color: #efefef">{{user.token}}</td>
-    <td>{{user.tokenExpiresAt}}</td>
-    <td style="background-color: #efefef; text-align: right; display: flex; justify-content: space-around">
+<table mat-table [dataSource]="userList" matSort (matSortChange)="sortChange($event)">
+
+  <ng-container matColumnDef="username">
+    <th mat-sort-header="username" mat-header-cell *matHeaderCellDef> Username </th>
+    <td mat-cell *matCellDef="let user"> {{ user.username }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <th mat-sort-header="role" mat-header-cell *matHeaderCellDef> Role </th>
+    <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="token">
+    <th mat-sort-header="token" mat-header-cell *matHeaderCellDef> Token </th>
+    <td mat-cell *matCellDef="let user"> {{user.token}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="tokenExpiresAt">
+    <th mat-sort-header="tokenExpiresAt" mat-header-cell *matHeaderCellDef> Token Expires At</th>
+    <td mat-cell *matCellDef="let user"> {{user.tokenExpiresAt}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-sort-header="actions" mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let user">
       <mat-icon (click)="edit()"> edit </mat-icon>
       <mat-icon (click)="editPassword()"> key </mat-icon>
-      <mat-icon style="color: red" (click)="delete()"> delete </mat-icon>
+      <mat-icon style="color: red" (click)="delete(user)"> delete </mat-icon>
     </td>
-  </tr>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
 </table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]"
+               showFirstLastButtons
+               aria-label="Select page of periodic elements">
+</mat-paginator>

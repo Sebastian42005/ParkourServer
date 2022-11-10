@@ -2,7 +2,10 @@ export function compare(a: number | string, b: number | string, isAsc: boolean) 
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
 
-export function instantToReadableConverter(instant: string): string {
+export function instantToReadableConverter(instant: string | null): string {
+  if(instant === null) {
+    return '';
+  }
   const datePart = instant.split('T')[0];
   const timePart = instant.split('T')[1];
 
