@@ -43,7 +43,7 @@ public class CompanyController {
         List<CompanyRequest> companyRequestList = companyRequestRepository.findAll();
         Optional<User> user = userRepository.findByToken(token);
         if (user.isPresent()) {
-            if (!companyRequestList.stream().anyMatch(companyRequest -> user.get().getUsername().equals(companyRequest.getUsername()))) {
+            if (companyRequestList.stream().noneMatch(companyRequest -> user.get().getUsername().equals(companyRequest.getUsername()))) {
                 if (user.get().getRole() == Role.USER) {
                     CompanyRequest companyRequest = new CompanyRequest();
                     companyRequest.setMessage(message);
