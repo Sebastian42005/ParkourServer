@@ -70,7 +70,7 @@ public class CompanyController {
                 companyRequestRepository.delete(companyRequest.get());
                 return ResponseEntity.ok().body(new RequestPermissionResponseClass("accepted"));
             }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("user not found"));
-        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("company request' not found"));
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("company request not found"));
     }
 
     @RequiredRole(Role.ADMIN)
@@ -80,6 +80,6 @@ public class CompanyController {
         if (companyRequest.isPresent()) {
             companyRequestRepository.delete(companyRequest.get());
             return ResponseEntity.ok().body(new RequestPermissionResponseClass("accepted"));
-        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("user not found"));
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("company request not found"));
     }
 }
