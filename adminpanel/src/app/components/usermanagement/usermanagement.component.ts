@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {ApiService} from "../../services/api/api.service";
 import {User} from "../../models/user.model";
 import {Sort} from "@angular/material/sort";
 import {compare, instantToReadableConverter} from "../../global/methods.global";
-import {MatDialog} from "@angular/material/dialog";
+import {MAT_DIALOG_DATA, MatDialog} from "@angular/material/dialog";
 import {YesnodialogComponent} from "../../dialogs/yesnodialog/yesnodialog.component";
 
 @Component({
@@ -14,19 +14,20 @@ import {YesnodialogComponent} from "../../dialogs/yesnodialog/yesnodialog.compon
 export class UsermanagementComponent implements OnInit {
 
   constructor(private api: ApiService,
-              private dialog: MatDialog) { }
+              private dialog: MatDialog){ }
 
   userList: User[] = [];
   displayedColumns: string[] = ['username', 'role', 'token', 'tokenExpiresAt', 'actions'];
 
   ngOnInit(): void {
     this.api.get<User[]>("/panel/all").subscribe(users => {
-      users.forEach(u => {
-        u.tokenExpiresAt = instantToReadableConverter(u.tokenExpiresAt);
-      })
       this.userList = users;
       console.log(users)
     });
+  }
+
+  readableInstant(instant: string) {
+    return instantToReadableConverter(instant)
   }
 
   sortChange(sort: Sort) {
@@ -55,6 +56,7 @@ export class UsermanagementComponent implements OnInit {
 
   delete(user: User) {
     const dialogRef = this.dialog.open(YesnodialogComponent, {
+      data: {user: user}
     });
     dialogRef.afterClosed().subscribe(value => {
       if(value) {

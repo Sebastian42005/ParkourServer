@@ -1,11 +1,16 @@
 package com.example.spotmap.controller.rating;
 
+import com.example.spotmap.annotations.RequiredRole;
 import com.example.spotmap.data.rating.Rating;
 import com.example.spotmap.data.rating.RatingRepository;
 import com.example.spotmap.data.spot.Spot;
 import com.example.spotmap.data.spot.SpotRepository;
 import com.example.spotmap.data.user.User;
 import com.example.spotmap.data.user.UserRepository;
+import com.example.spotmap.role.role.Role;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +37,7 @@ public class RatingController {
     @Autowired
     SpotRepository spotRepository;
 
+    @RequiredRole(Role.USER)
     @PostMapping("/spot")
     public ResponseEntity<Rating> rateSpot(@RequestParam("token") String token, @RequestParam("spot") int spotId, @RequestBody Rating rating) {
         Optional<User> user = userRepository.findByToken(token);
@@ -65,6 +71,30 @@ public class RatingController {
         Optional<Spot> spot = spotRepository.findById(id);
         if (spot.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(spot.get().getRatingList());
+        }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    class RatingInfoResponse {
+        double rating;
+        int userRating;
+    }
+
+    @GetMapping("/spot/{id}/info")
+    public ResponseEntity<RatingInfoResponse> getSpotRatingInfo(@PathVariable int id, @RequestParam(value = "token", defaultValue = "") String token) {
+        Optional<Spot> spot = spotRepository.findById(id);
+        Optional<User> user = userRepository.findByToken(token);
+        if (spot.isPresent()) {
+            int userRating = 0;
+            if (user.isPresent()) {
+                for (Rating rating : spot.get().getRatingList()) {
+                    if (rating.getUser().getUsername().equals(user.get().getUsername())) userRating = rating.getStars();
+                }
+            }
+            spot.get().setUserRating(userRating);
+            return ResponseEntity.status(HttpStatus.OK).body(new RatingInfoResponse(getAverageRating(spot.get().getRatingList()), spot.get().getUserRating()));
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 

@@ -2,5 +2,5 @@ package com.example.spotmap.data.company;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CompanyRequestRepository extends JpaRepository<CompanyRequest, Integer> {
+public interface CompanyRepository extends JpaRepository<Company, Integer> {
 }

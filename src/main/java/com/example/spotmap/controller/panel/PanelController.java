@@ -1,5 +1,6 @@
 package com.example.spotmap.controller.panel;
 
+import com.example.spotmap.annotations.RequiredRole;
 import com.example.spotmap.data.user.User;
 import com.example.spotmap.data.user.UserRepository;
 import com.example.spotmap.role.role.Role;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Validated
 @RestController
 @RequestMapping("/api/panel")
 public class PanelController {
@@ -45,11 +48,13 @@ public class PanelController {
         return present;
     }
 
+    @RequiredRole(Role.ADMIN)
     @GetMapping("/all")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
     }
 
+    @RequiredRole(Role.ADMIN)
     @DeleteMapping("/delete/{username}")
     public ResponseEntity<List<User>> deleteUser(@PathVariable("username") String username) {
         User user = userRepository.findByUsername(username).orElseThrow();

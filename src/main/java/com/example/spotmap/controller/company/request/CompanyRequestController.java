@@ -1,8 +1,10 @@
-package com.example.spotmap.controller.support.company;
+package com.example.spotmap.controller.company.request;
 
 import com.example.spotmap.annotations.RequiredRole;
-import com.example.spotmap.data.company.CompanyRequest;
-import com.example.spotmap.data.company.CompanyRequestRepository;
+import com.example.spotmap.data.company.Company;
+import com.example.spotmap.data.company.CompanyRepository;
+import com.example.spotmap.data.company.request.CompanyRequest;
+import com.example.spotmap.data.company.request.CompanyRequestRepository;
 import com.example.spotmap.data.user.User;
 import com.example.spotmap.data.user.UserRepository;
 import com.example.spotmap.role.role.Role;
@@ -11,6 +13,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,15 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
+@Validated
 @RestController
-@RequestMapping("api/company-requests")
-public class CompanyController {
+@RequestMapping("api/company")
+public class CompanyRequestController {
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
     CompanyRequestRepository companyRequestRepository;
+
+    @Autowired
+    CompanyRepository companyRepository;
 
     @AllArgsConstructor
     @Data
@@ -53,7 +60,7 @@ public class CompanyController {
     }
 
     @RequiredRole(Role.ADMIN)
-    @GetMapping("/all")
+    @GetMapping("/all-requests")
     public ResponseEntity<List<CompanyRequest>> getCompanyRequests(@RequestParam("token") String token) {
         return ResponseEntity.ok().body(companyRequestRepository.findAll());
     }
@@ -66,8 +73,11 @@ public class CompanyController {
             Optional<User> user = userRepository.findByUsername(companyRequest.get().getUsername());
             if (user.isPresent()) {
                 user.get().setRole(Role.COMPANY);
-                userRepository.save(user.get());
                 companyRequestRepository.delete(companyRequest.get());
+                Company company = new Company();
+                company.setName(user.get().getUsername());
+                user.get().setCompany(companyRepository.save(company));
+                userRepository.save(user.get());
                 return ResponseEntity.ok().body(new RequestPermissionResponseClass("accepted"));
             }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("user not found"));
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new RequestPermissionResponseClass("company request not found"));

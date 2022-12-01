@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @RestController
 @Validated
@@ -67,13 +67,8 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = new ArrayList<>();
-        userRepository.findAll().forEach(user -> {
-            user.setToken("");
-            userList.add(user);
-        });
-        return ResponseEntity.status(HttpStatus.OK).body(userList);
+    public ResponseEntity<List<User.UserResponseBasic>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll().stream().map(User::getBasicResponse).collect(Collectors.toList()));
     }
 
     @Data

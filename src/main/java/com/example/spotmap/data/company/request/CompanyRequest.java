@@ -1,4 +1,4 @@
-package com.example.spotmap.data.company;
+package com.example.spotmap.data.company.request;
 
 import com.example.spotmap.data.user.User;
 import lombok.Data;

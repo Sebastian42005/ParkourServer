@@ -1,0 +1,1 @@
+{"monday":[{"from":"12:00","to":"13:00","name":"Sebastian Session"}],"tuesday":[],"wednesday":[],"thursday":[],"friday":[],"saturday":[],"sunday":[]}

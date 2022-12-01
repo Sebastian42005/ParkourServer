@@ -1,24 +1,24 @@
 package com.example.spotmap;
 
-import com.example.spotmap.role.management.RoleHandler;
+import com.google.auth.oauth2.GoogleCredentials;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @SpringBootApplication
 public class SpotMapApplication {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(SpotMapApplication.class);
-
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final URI ROLE_INIT_URL = URI.create("http://localhost:8080/roles/init");
     private static final String ROLE_KEY = "a1f53033-b522-4343-b1b9-db8064142bf3";

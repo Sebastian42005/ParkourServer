@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.time.Instant;
 import java.util.Optional;
 
@@ -32,6 +31,7 @@ public class TokenController {
     @NoArgsConstructor
     class Response {
         boolean verified = false;
+        User.UserResponseBasic user;
     }
 
     @GetMapping("/verify")
@@ -45,6 +45,7 @@ public class TokenController {
         }
 
         targetUser.get().setToken(token);
+        response.user = targetUser.get().getBasicResponse();
 
         response.verified = Instant.now().isBefore(targetUser.get().getTokenExpiresAt());
 

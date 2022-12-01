@@ -4,6 +4,8 @@ import com.example.spotmap.data.image.Image;
 import com.example.spotmap.data.image.ImageRepository;
 import com.example.spotmap.data.spot.Spot;
 import com.example.spotmap.data.spot.SpotRepository;
+import com.example.spotmap.data.user.User;
+import com.example.spotmap.data.user.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class ImageController {
     @Autowired
     SpotRepository spotRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
 
     @Data
     @AllArgsConstructor
@@ -39,12 +44,17 @@ public class ImageController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Response> setSpotImage(@PathVariable("id") int id, @RequestParam("image") MultipartFile image) throws IOException {
+    public ResponseEntity<Response> setSpotImage(@PathVariable("id") int id, @RequestParam("token") String token, @RequestParam("image") MultipartFile image) throws IOException {
         Optional<Spot> spot = spotRepository.findById(id);
+        Optional<User> user = userRepository.findByToken(token);
         if (spot.isPresent()) {
-            Image picture = new Image(id, image.getContentType(), image.getBytes());
-            imageRepository.save(picture);
-            return ResponseEntity.status(HttpStatus.OK).body(new Response(picture.getId()));
+            if (user.isPresent()) {
+                if (user.get().getUsername().equals(spot.get().getUser().getUsername())) {
+                    Image picture = new Image(id, image.getContentType(), image.getBytes());
+                    imageRepository.save(picture);
+                    return ResponseEntity.status(HttpStatus.OK).body(new Response(picture.getId()));
+                }else return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
+            }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }else return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
